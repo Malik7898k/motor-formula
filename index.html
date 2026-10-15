@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123d70">
+<title>Motor Formula - موٹر فارمولا</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:#152238;font-family:system-ui,"Noto Nastaliq Urdu","Noto Sans Arabic",sans-serif}
+header{background:#123d70;color:#fff;padding:16px;text-align:center}header h1{margin:0;font-size:22px}header p{margin:4px 0 0;font-size:13px}
+main{max-width:850px;margin:auto;padding:12px}.panel{background:#fff;border:1px solid #d8e1ec;border-radius:13px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px #102a4310}
+h2{font-size:17px;margin:0 0 12px;color:#123d70}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}input,select,textarea{width:100%;min-width:0;border:1px solid #c7d2df;border-radius:8px;padding:10px;font:inherit;font-size:15px;background:#fff;color:#152238}
+textarea{min-height:68px}.wide{grid-column:1/-1}.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+button{border:0;border-radius:9px;padding:12px;font:inherit;font-weight:700;background:#123d70;color:#fff;cursor:pointer}button.alt{background:#e3edf8;color:#123d70}button.danger{background:#a62828}.small{font-size:12px;color:#526176}
+#records button{margin:4px 3px 0 0;padding:7px 10px;font-size:12px}.record{border:1px solid #d8e1ec;border-radius:10px;padding:10px;margin-top:8px;white-space:pre-wrap}
+@media(min-width:700px){main{padding:18px}.panel{padding:18px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style></head>
+<body>
+<header><h1>Motor Formula (موٹر فارمولا)</h1><p>موٹر کی تفصیلات، کوائل چکر اور وزن ایک جگہ محفوظ کریں</p></header>
+<main>
+<form id="motorForm">
+<section class="panel"><h2>1۔ موٹر کی بنیادی معلومات</h2><div class="grid">
+<div><label>موٹر کا نام / ماڈل</label><input name="motor" placeholder="مثلاً واٹر پمپ"></div>
+<div><label>پچ (انچ)</label><input name="pitch" placeholder="مثلاً 1.5"></div>
+<div><label>پچ نمبر</label><input name="pitchNo" placeholder="پچ نمبر"></div>
+<div><label>ایک کوائل سے دوسری کوائل تک خالی سلاٹس</label><input name="emptySlots" type="number" min="0" placeholder="مثلاً 3"></div>
+<div><label>کل سلاٹس</label><input name="slots" type="number" placeholder="مثلاً 24"></div>
+<div><label>کل وزن (گرام)</label><input name="weight" type="number" step="any" placeholder="مثلاً 150"></div>
+<div><label>فی سیٹ وزن (گرام)</label><input name="setWeight" type="number" step="any" placeholder="مثلاً 130"></div>
+</div></section>
+<section class="panel"><h2>2۔ فیز، سیٹ اور تار</h2><div class="grid">
+<div><label>فیز</label><select name="phase"><option>سنگل فیز</option><option>تھری فیز</option></select></div>
+<div><label>کوائل سیٹ</label><select name="sets"><option>2 سیٹ</option><option selected>3 سیٹ</option><option>4 سیٹ</option><option>5 سیٹ</option></select></div>
+<div><label>تار کا نمبر / گیج</label><input name="wire" placeholder="مثلاً 24 نمبر"></div>
+<div><label>کنکشن</label><select name="connection"><option>سنگل فیز وائنڈنگ</option><option>سٹار (Star)</option><option>ڈیلٹا (Delta)</option><option>دوسرا / معلوم نہیں</option></select></div>
+</div></section>
+<section class="panel"><h2>3۔ کوائل کے چکر</h2><div class="grid">
+<div><label>پہلی کوائل کے چکر</label><input name="first" type="number" placeholder="چکر"></div>
+<div><label>دوسری کوائل کے چکر</label><input name="second" type="number" placeholder="چکر"></div>
+<div><label>تیسری کوائل کے چکر</label><input name="third" type="number" placeholder="چکر"></div>
+<div><label>چوتھی کوائل کے چکر</label><input name="fourth" type="number" placeholder="چکر"></div>
+<div><label>پانچویں کوائل کے چکر</label><input name="fifth" type="number" placeholder="چکر"></div>
+<div><label>دیگر چکر / تفصیل</label><input name="otherTurns" placeholder="اگر ہوں"></div>
+<div class="wide"><label>اضافی نوٹس</label><textarea name="notes" placeholder="کوائل کنکشن، تاروں کی تعداد، پرانی وائنڈنگ وغیرہ"></textarea></div>
+</div></section>
+<div class="panel actions">
+<button type="submit">ریکارڈ محفوظ کریں</button><button type="button" class="alt" id="copyCurrent">تفصیل کاپی کریں</button>
+<button type="button" class="alt" id="newForm">نیا فارم</button><button type="button" class="alt" id="export">ریکارڈ فائل بنائیں</button>
+</div>
+</form>
+<section class="panel"><h2>فارمولا تلاش کریں</h2><label for="searchFormula">موٹر کا نام، ماڈل، پچ، تار کا گیج یا نوٹس لکھیں</label><input id="searchFormula" type="search" placeholder="مثلاً 24 سلاٹس، 24 نمبر تار، واٹر پمپ"><p class="small">نیچے محفوظ فارمولوں میں سے ملتا جلتا ریکارڈ تلاش کریں۔ نیا فارمولا بنانے کے لیے اوپر فارم پُر کرکے “ریکارڈ محفوظ کریں” دبائیں۔</p><div id="records"></div></section>
+</main>
+<script>
+const form=document.getElementById('motorForm'), key='motorWindingRecordsV1'; let activeId=null;
+const getRecords=()=>{try{return JSON.parse(localStorage.getItem(key)||'[]')}catch(e){return []}};
+const fields=()=>Object.fromEntries(new FormData(form).entries());
+function recordText(r){return Object.entries({'موٹر':r.motor,'پچ (انچ)':r.pitch,'پچ نمبر':r.pitchNo,'ایک کوائل سے دوسری کوائل تک خالی سلاٹس':r.emptySlots,'کل سلاٹس':r.slots,'کل وزن (گرام)':r.weight,'فی سیٹ وزن (گرام)':r.setWeight,'فیز':r.phase,'کوائل سیٹ':r.sets,'تار / گیج':r.wire,'کنکشن':r.connection,'پہلی کوائل کے چکر':r.first,'دوسری کوائل کے چکر':r.second,'تیسری کوائل کے چکر':r.third,'چوتھی کوائل کے چکر':r.fourth,'پانچویں کوائل کے چکر':r.fifth,'دیگر چکر':r.otherTurns,'نوٹس':r.notes}).map(([k,v])=>k+': '+(v||'—')).join('\n')}
+function render(){let box=document.getElementById('records');box.replaceChildren();let all=getRecords();let q=(document.getElementById('searchFormula')?.value||'').trim().toLocaleLowerCase();let rs=all.filter(r=>!q||Object.values(r).some(v=>String(v??'').toLocaleLowerCase().includes(q)));if(!all.length){box.textContent='ابھی کوئی فارمولا محفوظ نہیں۔ نیا فارمولا اوپر درج کرکے محفوظ کریں۔';return}if(!rs.length){box.textContent='اس تلاش سے کوئی فارمولا نہیں ملا۔';return}rs.slice().reverse().forEach(r=>{let d=document.createElement('div');d.className='record';let t=document.createElement('div');t.textContent=(r.motor||'بغیر نام کی موٹر')+' — '+(r.phase||'');d.append(t);let b1=document.createElement('button');b1.className='alt';b1.textContent='کھولیں / ایڈٹ';b1.onclick=()=>{activeId=r.id;for(let [k,v] of Object.entries(r))if(form.elements[k])form.elements[k].value=v;window.scrollTo({top:0,behavior:'smooth'})};let b2=document.createElement('button');b2.className='alt';b2.textContent='کاپی';b2.onclick=()=>copy(recordText(r));let b3=document.createElement('button');b3.className='danger';b3.textContent='حذف';b3.onclick=()=>{if(confirm('یہ ریکارڈ حذف کریں؟')){localStorage.setItem(key,JSON.stringify(getRecords().filter(x=>x.id!==r.id)));render()}};d.append(b1,b2,b3);box.append(d)})}
+function copy(t){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>alert('کاپی ہو گیا')).catch(()=>prompt('متن کاپی کریں:',t));else prompt('متن کاپی کریں:',t)}
+form.onsubmit=e=>{e.preventDefault();let r={...fields(),id:activeId||Date.now()};let rs=getRecords();let i=rs.findIndex(x=>x.id===r.id);if(i>=0)rs[i]=r;else rs.push(r);localStorage.setItem(key,JSON.stringify(rs));activeId=null;render();alert('ریکارڈ محفوظ ہو گیا')};
+document.getElementById('copyCurrent').onclick=()=>copy(recordText(fields()));
+document.getElementById('newForm').onclick=()=>{form.reset();activeId=null};
+document.getElementById('export').onclick=()=>{let blob=new Blob([JSON.stringify(getRecords(),null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='motor-winding-records.json';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('searchFormula').addEventListener('input',render);
+render();
+</script></body></html>
